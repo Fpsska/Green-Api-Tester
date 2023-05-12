@@ -1,0 +1,41 @@
+@import './reset';
+@import './vars';
+
+// /. imports
+
+html {
+    font-size: 14px;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: 300;
+    color: $bright-gray-color;
+    background-color: $chinese-black-color;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+
+    &::before {
+        content: '';
+        opacity: 0.2;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: url(../images/background-img.png);
+        background-position: center;
+        background-size: contain;
+        background-repeat: repeat;
+    }
+}
+
+#root,
+.App,
+.page {
+    height: 100%;
+}
+
+// /. general-styles
