@@ -1,5 +1,7 @@
 import React from 'react';
 
+import FormInput from 'app/components/ui/FormInput/FormInput';
+
 import './auth-form.scss';
 
 // /. imports
@@ -11,18 +13,8 @@ const AuthForm: React.FC = () => {
             action="#"
             onSubmit={e => e.preventDefault()}
         >
-            <input
-                className="auth-form__input"
-                type="text"
-                required
-                placeholder="Type a idInstance"
-            />
-            <input
-                className="auth-form__input"
-                type="text"
-                required
-                placeholder="Type a apiTokenInstance"
-            />
+            <FormInput placeholder="Type a idInstance" />
+            <FormInput placeholder="Type a apiTokenInstance" />
             <button
                 className="auth-form__button"
                 type="submit"

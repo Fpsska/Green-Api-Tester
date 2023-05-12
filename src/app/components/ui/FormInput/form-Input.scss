@@ -1,0 +1,19 @@
+@import 'assets/styles/vars.scss';
+
+// /. imports
+
+.input {
+    background-color: $outer-space-color;
+    color: $light-silver-color;
+    padding: 9px 12px;
+    border-radius: 8px;
+    border: transparent;
+
+    &::placeholder {
+        color: $cool-grey-color;
+    }
+}
+
+.input_message {
+    min-height: 100px;
+}
