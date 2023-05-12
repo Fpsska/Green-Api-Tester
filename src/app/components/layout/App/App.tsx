@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Header from 'app/components/layout/Header/Header';
+
 import './App.css';
 import 'assets/styles/style.scss';
 
@@ -8,8 +10,7 @@ import 'assets/styles/style.scss';
 const App: React.FC = () => {
     return (
         <div className="App">
-            Hello world!
-            <div></div>
+            <Header />
         </div>
     );
 };
