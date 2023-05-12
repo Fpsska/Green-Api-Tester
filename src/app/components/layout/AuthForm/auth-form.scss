@@ -1,0 +1,45 @@
+@import 'assets/styles/vars.scss';
+
+// /. imports
+
+.auth-form {
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: $charleston-green-color;
+    padding: 10px 15px;
+
+    :not(:last-child) {
+        margin-bottom: 10px;
+    }
+
+    &__input {
+        background-color: $outer-space-color;
+        color: $light-silver-color;
+        padding: 9px 12px;
+        border-radius: 8px;
+        border: transparent;
+
+        &::placeholder {
+            color: $cool-grey;
+        }
+    }
+
+    &__button {
+        position: relative;
+        text-align: center;
+        padding: 24px;
+        border-radius: 24px;
+        border: transparent;
+        cursor: pointer;
+        background-color: $munsell-green-color;
+        color: $chinese-black-color;
+        font-weight: 700;
+        transition: background .25s ease-in-out;
+
+        &:hover {
+            background-color: $caribbean-green-color;
+        }
+    }
+}

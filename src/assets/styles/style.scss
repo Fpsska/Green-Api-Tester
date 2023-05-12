@@ -40,4 +40,13 @@ body {
     height: 100%;
 }
 
+.App {
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1 1 auto;
+}
+
 // /. general-styles
