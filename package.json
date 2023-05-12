@@ -1,6 +1,7 @@
 {
   "name": "green-api-task",
   "version": "0.1.0",
+  "author": "Fpsska",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
