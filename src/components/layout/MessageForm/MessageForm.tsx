@@ -1,5 +1,9 @@
 import React from 'react';
 
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+
+import { setRecipientPhoneNumber } from 'app/slices/chatSlice';
+
 import FormInput from 'components/ui/FormInput/FormInput';
 
 import './message-form.scss';
@@ -7,14 +11,37 @@ import './message-form.scss';
 // /. imports
 
 const MessageForm: React.FC = () => {
+    const { recipientPhoneNumber } = useAppSelector(state => state.chatSlice);
+
+    const dispatch = useAppDispatch();
+
+    // /. hooks
+
+    const onMessageFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+        e.preventDefault();
+        //
+    };
+
+    const onPhoneNumberInputChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ): void => {
+        dispatch(setRecipientPhoneNumber(e.target.value.trim()));
+    };
+
+    // /. functions
+
     return (
         <form
             className="message-form"
             action="#"
-            onSubmit={e => e.preventDefault()}
+            onSubmit={e => onMessageFormSubmit(e)}
         >
             <div className="message-form__inputs">
-                <FormInput placeholder="Type a phone number" />
+                <FormInput
+                    placeholder="Type a phone number"
+                    onInputChange={onPhoneNumberInputChange}
+                    value={recipientPhoneNumber}
+                />
                 <textarea
                     className="message-form__text-area"
                     placeholder="Type a message"

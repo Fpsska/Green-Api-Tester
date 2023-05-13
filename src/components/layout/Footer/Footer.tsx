@@ -11,6 +11,7 @@ const Footer: React.FC = () => {
     return (
         <footer className="footer">
             <AuthForm />
+            <MessageForm />
         </footer>
     );
 };
