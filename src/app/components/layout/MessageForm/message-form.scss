@@ -59,6 +59,7 @@
         border: 1px solid $munsell-green-color;
         transition: all .25s ease-in-out;
         border-radius: 24px;
+        cursor: pointer;
 
         &:hover {
             border-color: $caribbean-green-color;

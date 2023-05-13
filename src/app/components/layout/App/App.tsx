@@ -1,9 +1,12 @@
 import React from 'react';
 
-import Header from 'app/components/layout/Header/Header';
-import Footer from 'app/components/layout/Footer/Footer';
+import { Route, Routes } from 'react-router-dom';
 
-import MessageForm from 'app/components/layout/MessageForm/MessageForm';
+import Layout from 'app/components/layout/Layout';
+
+import AuthPage from 'pages/AuthPage';
+import ChatPage from 'pages/ChatPage';
+import NoFoundPage from 'pages/NoFoundPage';
 
 import './App.css';
 import 'assets/styles/style.scss';
@@ -13,11 +16,25 @@ import 'assets/styles/style.scss';
 const App: React.FC = () => {
     return (
         <div className="App">
-            <Header />
-            <main className="main">
-                <MessageForm />
-            </main>
-            <Footer />
+            <Routes>
+                <Route
+                    path="/"
+                    element={<Layout />}
+                >
+                    <Route
+                        index
+                        element={<AuthPage />}
+                    />
+                    <Route
+                        path="chat"
+                        element={<ChatPage />}
+                    />
+                    <Route
+                        path="*"
+                        element={<NoFoundPage />}
+                    />
+                </Route>
+            </Routes>
         </div>
     );
 };
