@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FormInput from 'app/components/ui/FormInput/FormInput';
+import FormInput from 'components/ui/FormInput/FormInput';
 
 import './message-form.scss';
 

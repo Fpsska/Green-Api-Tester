@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Route, Routes } from 'react-router-dom';
 
-import Layout from 'app/components/layout/Layout';
+import Layout from 'components/layout/Layout';
 
 import AuthPage from 'pages/AuthPage';
 import ChatPage from 'pages/ChatPage';
