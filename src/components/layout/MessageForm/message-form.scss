@@ -38,12 +38,12 @@
         }
 
         &::-webkit-scrollbar-track {
-            border-radius: 24px;
+            border-radius: $genaral-border-radius;
         }
 
         &::-webkit-scrollbar-thumb {
             background-color: $cool-grey-color;
-            border-radius: 24px;
+            border-radius: $genaral-border-radius;
         }
 
         &::placeholder {
@@ -62,8 +62,8 @@
         justify-content: center;
         min-height: 60px;
         border: 1px solid $munsell-green-color;
-        transition: all .25s ease-in-out;
-        border-radius: 24px;
+        transition: $general-transition;
+        border-radius: $genaral-border-radius;
         cursor: pointer;
 
         &:hover {

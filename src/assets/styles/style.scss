@@ -68,18 +68,4 @@ body {
             margin-right: 10px;
         }
     }
-
-    &__button {
-        cursor: pointer;
-        padding: 12px 22px;
-        border-radius: 24px;
-        border: 1px solid rgba(134, 150, 160, 0.15);
-        color: $munsell-green-color;
-        background-color: rgba($color: $outer-space-color, $alpha: .5);
-        transition: all .25s ease-in-out;
-
-        &:hover {
-            border-color: $caribbean-green-color;
-        }
-    }
 }

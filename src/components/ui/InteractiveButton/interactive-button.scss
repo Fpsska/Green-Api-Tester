@@ -1,0 +1,17 @@
+@import 'assets/styles/vars.scss';
+
+// /. imports
+
+.interactive-button {
+    cursor: pointer;
+    padding: 12px 22px;
+    border-radius: $genaral-border-radius;
+    border: 1px solid rgba(134, 150, 160, 0.15);
+    color: $munsell-green-color;
+    background-color: rgba($color: $outer-space-color, $alpha: .5);
+    transition: $general-transition;
+
+    &:hover {
+        border-color: $caribbean-green-color;
+    }
+}

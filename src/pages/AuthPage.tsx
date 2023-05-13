@@ -10,6 +10,8 @@ import {
     setUserApiTokenInstance
 } from 'app/slices/authSlice';
 
+import InteractiveButton from 'components/ui/InteractiveButton/InteractiveButton';
+
 // /. imports
 
 const AuthPage: React.FC = () => {
@@ -44,20 +46,14 @@ const AuthPage: React.FC = () => {
             <>
                 {isUserAuthorized && (
                     <div className="auth-section__controls">
-                        <button
-                            className="auth-section__button"
-                            type="button"
-                            onClick={onLogoutButtonClick}
-                        >
-                            Log out
-                        </button>
-                        <button
-                            className="auth-section__button"
-                            type="button"
-                            onClick={onContinueButtonClick}
-                        >
-                            Continue
-                        </button>
+                        <InteractiveButton
+                            value="Log out"
+                            onButtonClick={onLogoutButtonClick}
+                        />
+                        <InteractiveButton
+                            value="Continue"
+                            onButtonClick={onContinueButtonClick}
+                        />
                     </div>
                 )}
             </>
