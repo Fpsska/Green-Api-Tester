@@ -1,10 +1,13 @@
 import React from 'react';
 
+import { useNavigate } from 'react-router';
+
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 
 import {
     setUserIdInstance,
-    setUserApiTokenInstance
+    setUserApiTokenInstance,
+    switchUserAuthorizedStatus
 } from 'app/slices/authSlice';
 
 import FormInput from 'components/ui/FormInput/FormInput';
@@ -19,12 +22,15 @@ const AuthForm: React.FC = () => {
     );
 
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     // /. hooks
 
     const onAuthFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         //
+        dispatch(switchUserAuthorizedStatus(true));
+        navigate('/chat', { state: 'messaging' });
     };
 
     const onIdInstanceInputChange = (
@@ -61,7 +67,7 @@ const AuthForm: React.FC = () => {
                 className="auth-form__button"
                 type="submit"
             >
-                Submit
+                Verify
             </button>
         </form>
     );

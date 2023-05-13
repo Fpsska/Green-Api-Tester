@@ -47,6 +47,7 @@ body {
 
 .main {
     flex: 1 1 auto;
+    padding: 10px;
 }
 
 // /. general-styles
@@ -54,4 +55,31 @@ body {
 .section-title {
     text-align: center;
     font-weight: 300;
+}
+
+.auth-section {
+
+    &__controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        :not(:last-child) {
+            margin-right: 10px;
+        }
+    }
+
+    &__button {
+        cursor: pointer;
+        padding: 12px 22px;
+        border-radius: 24px;
+        border: 1px solid rgba(134, 150, 160, 0.15);
+        color: $munsell-green-color;
+        background-color: rgba($color: $outer-space-color, $alpha: .5);
+        transition: all .25s ease-in-out;
+
+        &:hover {
+            border-color: $caribbean-green-color;
+        }
+    }
 }

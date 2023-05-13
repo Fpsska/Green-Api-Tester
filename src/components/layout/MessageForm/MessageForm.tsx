@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useLocation } from 'react-router';
+
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 
 import { setRecipientPhoneNumber } from 'app/slices/chatSlice';
@@ -14,8 +16,11 @@ const MessageForm: React.FC = () => {
     const { recipientPhoneNumber } = useAppSelector(state => state.chatSlice);
 
     const dispatch = useAppDispatch();
+    const location = useLocation();
 
     // /. hooks
+
+    const isChatPage = location?.state === 'chat';
 
     const onMessageFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
@@ -41,11 +46,13 @@ const MessageForm: React.FC = () => {
                     placeholder="Type a phone number"
                     onInputChange={onPhoneNumberInputChange}
                     value={recipientPhoneNumber}
+                    isDisabled={!isChatPage}
                 />
                 <textarea
                     className="message-form__text-area"
                     placeholder="Type a message"
                     required
+                    disabled={!isChatPage}
                 ></textarea>
             </div>
 
@@ -54,6 +61,7 @@ const MessageForm: React.FC = () => {
                     className="message-form__button"
                     type="submit"
                     aria-label="send message"
+                    disabled={!isChatPage}
                 >
                     <svg
                         viewBox="0 0 24 24"

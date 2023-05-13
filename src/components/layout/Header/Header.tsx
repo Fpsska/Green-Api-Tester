@@ -1,14 +1,34 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
+import { useLocation } from 'react-router';
+
 import './header.scss';
 
 // /. imports
 
 const Header: React.FC = () => {
+    const location = useLocation();
+
+    // /. hooks
+
+    const headerStageTitle = location?.state || 'unknown';
+
+    // /. viriables
+
     return (
         <header className="header">
             <div className="header__wrapper">
-                <h1 className="header__title">GREEN-API / AUTH</h1>
+                <h1 className="header__title">
+                    <Link
+                        to="/"
+                        state="auth"
+                    >
+                        GREEN-API
+                    </Link>{' '}
+                    / {headerStageTitle}
+                </h1>
                 <button
                     className="header__button"
                     aria-label="open context menu"

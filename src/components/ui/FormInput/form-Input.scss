@@ -12,6 +12,11 @@
     &::placeholder {
         color: $cool-grey-color;
     }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
 }
 
 .input_message {
