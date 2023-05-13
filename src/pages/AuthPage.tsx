@@ -10,6 +10,8 @@ import {
     setUserApiTokenInstance
 } from 'app/slices/authSlice';
 
+import { setRequestError } from 'app/slices/chatSlice';
+
 import InteractiveButton from 'components/ui/InteractiveButton/InteractiveButton';
 
 // /. imports
@@ -32,6 +34,7 @@ const AuthPage: React.FC = () => {
         dispatch(setUserIdInstance(''));
         dispatch(setUserApiTokenInstance(''));
         dispatch(switchUserAuthorizedStatus(false));
+        dispatch(setRequestError(null));
     };
 
     const onContinueButtonClick = (): void => {

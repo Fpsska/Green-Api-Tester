@@ -6,7 +6,8 @@ import { chatSliceTypes } from 'types/chatSliceTypes';
 
 const initialState: chatSliceTypes = {
     recipientPhoneNumber: '',
-    messageValue: ''
+    messageValue: '',
+    requestError: null
 };
 
 const chatSlice = createSlice({
@@ -18,10 +19,14 @@ const chatSlice = createSlice({
         },
         setMessageValue(state, action: PayloadAction<string>) {
             state.messageValue = action.payload;
+        },
+        setRequestError(state, action: PayloadAction<string | null>) {
+            state.requestError = action.payload;
         }
     }
 });
 
-export const { setRecipientPhoneNumber, setMessageValue } = chatSlice.actions;
+export const { setRecipientPhoneNumber, setMessageValue, setRequestError } =
+    chatSlice.actions;
 
 export default chatSlice.reducer;

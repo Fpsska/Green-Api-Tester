@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useLocation } from 'react-router';
 
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 
-import { setRecipientPhoneNumber } from 'app/slices/chatSlice';
+import {
+    setRecipientPhoneNumber,
+    setMessageValue,
+    setRequestError
+} from 'app/slices/chatSlice';
+
+import { useFetchApi } from 'utils/hooks/useFetchApi';
 
 import FormInput from 'components/ui/FormInput/FormInput';
 
@@ -13,10 +19,17 @@ import './message-form.scss';
 // /. imports
 
 const MessageForm: React.FC = () => {
-    const { recipientPhoneNumber } = useAppSelector(state => state.chatSlice);
+    const { recipientPhoneNumber, messageValue } = useAppSelector(
+        state => state.chatSlice
+    );
+    const { userIdInstance, userApiTokenInstance } = useAppSelector(
+        state => state.authSlice
+    );
 
     const dispatch = useAppDispatch();
     const location = useLocation();
+
+    const { isLoading, error, fetchRequest } = useFetchApi();
 
     // /. hooks
 
@@ -25,6 +38,13 @@ const MessageForm: React.FC = () => {
     const onMessageFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         //
+        const URL = `${process.env.REACT_APP_GREEN_API_URL}/waInstance${userIdInstance}/sendMessage/${userApiTokenInstance}`;
+        fetchRequest(URL, 'POST', {
+            chatId: `${recipientPhoneNumber}@c.us`,
+            message: messageValue
+        })
+            .then((data: any) => console.log('POST DATA:', data))
+            .finally(() => dispatch(setMessageValue('')));
     };
 
     const onPhoneNumberInputChange = (
@@ -33,7 +53,19 @@ const MessageForm: React.FC = () => {
         dispatch(setRecipientPhoneNumber(e.target.value.trim()));
     };
 
+    const onMessageInputChange = (
+        e: React.ChangeEvent<HTMLTextAreaElement>
+    ): void => {
+        dispatch(setMessageValue(e.target.value));
+    };
+
     // /. functions
+
+    useEffect(() => {
+        error && dispatch(setRequestError(error));
+    }, [error]);
+
+    // /. effects
 
     return (
         <form
@@ -53,6 +85,8 @@ const MessageForm: React.FC = () => {
                     placeholder="Type a message"
                     required
                     disabled={!isChatPage}
+                    value={messageValue}
+                    onChange={e => onMessageInputChange(e)}
                 ></textarea>
             </div>
 

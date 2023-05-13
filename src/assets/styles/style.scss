@@ -57,6 +57,32 @@ body {
     font-weight: 300;
 }
 
+.error-markup {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: $bright-gray-color;
+    font-weight: 500;
+    font-size: 22px;
+    text-align: center;
+
+    b {
+        color: rgba($color: red, $alpha: .6);
+    }
+}
+
+.chat-section {
+    height: 100%;
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+}
+
 .auth-section {
 
     &__controls {
