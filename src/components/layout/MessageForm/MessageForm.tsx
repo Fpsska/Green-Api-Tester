@@ -33,7 +33,7 @@ const MessageForm: React.FC = () => {
 
     // /. hooks
 
-    const isChatPage = location?.state === 'chat';
+    const isChatPage = location?.state === 'messaging';
 
     const onMessageFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
@@ -90,31 +90,29 @@ const MessageForm: React.FC = () => {
                 ></textarea>
             </div>
 
-            <div className="message-form__controls">
-                <button
-                    className="message-form__button"
-                    type="submit"
-                    aria-label="send message"
-                    disabled={!isChatPage}
+            <button
+                className="message-form__button"
+                type="submit"
+                aria-label="send message"
+                disabled={!isChatPage}
+            >
+                <svg
+                    viewBox="0 0 24 24"
+                    height="24"
+                    width="24"
+                    preserveAspectRatio="xMidYMid meet"
+                    version="1.1"
+                    x="0px"
+                    y="0px"
+                    enableBackground="new 0 0 24 24"
+                    xmlSpace="preserve"
                 >
-                    <svg
-                        viewBox="0 0 24 24"
-                        height="24"
-                        width="24"
-                        preserveAspectRatio="xMidYMid meet"
-                        version="1.1"
-                        x="0px"
-                        y="0px"
-                        enableBackground="new 0 0 24 24"
-                        xmlSpace="preserve"
-                    >
-                        <path
-                            fill=""
-                            d="M1.101,21.757L23.8,12.028L1.101,2.3l0.011,7.912l13.623,1.816L1.112,13.845 L1.101,21.757z"
-                        ></path>
-                    </svg>
-                </button>
-            </div>
+                    <path
+                        fill=""
+                        d="M1.101,21.757L23.8,12.028L1.101,2.3l0.011,7.912l13.623,1.816L1.112,13.845 L1.101,21.757z"
+                    ></path>
+                </svg>
+            </button>
         </form>
     );
 };

@@ -38,7 +38,7 @@ const AuthPage: React.FC = () => {
     };
 
     const onContinueButtonClick = (): void => {
-        navigate('/chat', { state: 'chat' });
+        navigate('/chat', { state: 'messaging' });
     };
 
     // /. functions

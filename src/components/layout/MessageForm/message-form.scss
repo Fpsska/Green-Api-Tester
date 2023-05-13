@@ -56,15 +56,19 @@
         }
     }
 
-    &__controls {
+    &__button {
         flex: 1 1 auto;
         display: flex;
+        align-items: center;
         justify-content: center;
         min-height: 60px;
+        padding: 0;
         border: 1px solid $munsell-green-color;
-        transition: $general-transition;
         border-radius: $genaral-border-radius;
+        background-color: transparent;
+        transition: $general-transition;
         cursor: pointer;
+        pointer-events: auto;
 
         &:hover {
             border-color: $caribbean-green-color;
@@ -72,23 +76,6 @@
             svg {
                 fill: $caribbean-green-color;
             }
-        }
-    }
-
-    &__button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: transparent;
-        border: transparent;
-        padding: 0;
-        cursor: pointer;
-        pointer-events: auto;
-
-        svg {
-            transition: fill .25s ease-in-out;
-            cursor: pointer;
-            fill: rgba(134, 150, 160, 0.55);
         }
 
         &:disabled {
@@ -101,5 +88,12 @@
                 cursor: not-allowed;
             }
         }
+
+        svg {
+            cursor: pointer;
+            transition: $general-transition;
+            fill: rgba(134, 150, 160, 0.55);
+        }
+
     }
 }

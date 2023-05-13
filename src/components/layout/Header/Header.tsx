@@ -13,7 +13,7 @@ const Header: React.FC = () => {
 
     // /. hooks
 
-    const headerStageTitle = location?.state || 'unknown';
+    const headerStageTitle = location?.state || 'auth';
 
     // /. viriables
 
