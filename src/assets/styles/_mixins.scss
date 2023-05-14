@@ -1,0 +1,14 @@
+@mixin stylizedSrollBar {
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: $genaral-border-radius;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $cool-grey-color;
+        border-radius: $genaral-border-radius;
+    }
+}

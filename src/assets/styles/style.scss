@@ -1,5 +1,6 @@
 @import './reset';
 @import './vars';
+@import './mixins';
 
 // /. imports
 
@@ -17,8 +18,19 @@ body {
     color: $bright-gray-color;
     background-color: $chinese-black-color;
     position: relative;
-    overflow: hidden;
     height: 100%;
+
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
 
     &::before {
         content: '';
@@ -80,6 +92,21 @@ body {
         display: flex;
         flex-direction: column;
         height: 100%;
+    }
+
+    &__preview {
+        position: relative;
+        height: 100%;
+    }
+
+    &__messages-list {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+
+        @include stylizedSrollBar;
     }
 }
 
