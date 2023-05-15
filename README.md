@@ -2,6 +2,20 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
 
+###### _hosted by_
+- [vercel](https://vercel.com/)
+###### _powered by :_
+- [green API](https://green-api.com.kz/)
+- [css-spinner](https://loading.io/css/)
+
+Guideline for launch:
+1. use `git clone https://github.com/Fpsska/GreenApi-Task.git` in terminal console your PC in any folder
+2. open cloned project folder with any code editor
+3. use `npm install` in terminal console of code editor  for download all dependencies
+4. use `npm start` in terminal console of code editor  for start React App
+
+### `Watch demo` _[green-api-tester](https://green-api-tester.vercel.app/)_
+
 ## Available Scripts
 
 In the project directory, you can run:
