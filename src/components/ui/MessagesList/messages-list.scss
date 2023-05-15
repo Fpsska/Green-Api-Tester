@@ -29,6 +29,12 @@
         }
     }
 
+    &__template.own {
+        .messages-list__name {
+            color: $cool-grey-color;
+        }
+    }
+
     &__text {
         margin: 0;
         font-size: 14px;

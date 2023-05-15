@@ -79,7 +79,8 @@ const ChatPage: React.FC = () => {
                             id: receivedNoticeResponse.receiptId,
                             senderName: 'Me',
                             message: messageValue,
-                            time: receivedNoticeResponse.body.timestamp
+                            time: receivedNoticeResponse.body.timestamp,
+                            isOwnMessage: true
                         })
                     );
                 }
@@ -91,9 +92,10 @@ const ChatPage: React.FC = () => {
                     delete_notice_url,
                     'DELETE'
                 );
+
+                dispatch(setMessageValue(''));
                 // console.log('deletedNoticeResponse:', deletedNoticeResponse);
             } finally {
-                dispatch(setMessageValue(''));
                 console.log('=== Ending of handling notice events ===');
             }
         };

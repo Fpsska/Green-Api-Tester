@@ -8,17 +8,16 @@ interface propTypes {
     message: string;
     senderName: string;
     time: string;
+    isOwnMessage?: boolean;
 }
 
 // /. interfaces
 
-const MessageTemplate: React.FC<propTypes> = ({
-    message,
-    senderName,
-    time
-}) => {
+const MessageTemplate: React.FC<propTypes> = props => {
+    const { message, senderName, time, isOwnMessage } = props;
+
     return (
-        <li className="messages-list__template">
+        <li className={`messages-list__template ${isOwnMessage ? 'own' : ''} `}>
             <span className="messages-list__name">{senderName}</span>
             <span className="messages-list__text">{message}</span>
             <span className="messages-list__time">

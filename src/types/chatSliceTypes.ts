@@ -11,4 +11,5 @@ export interface Imessage {
     senderName: string;
     message: string;
     time: string;
+    isOwnMessage?: boolean;
 }

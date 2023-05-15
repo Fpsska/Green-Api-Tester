@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useNavigate } from 'react-router';
 
@@ -11,6 +11,7 @@ import {
 } from 'app/slices/authSlice';
 
 import FormInput from 'components/ui/FormInput/FormInput';
+import Loader from 'components/ui/Loader/Loader';
 
 import './auth-form.scss';
 
@@ -21,6 +22,8 @@ const AuthForm: React.FC = () => {
         state => state.authSlice
     );
 
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
@@ -29,8 +32,12 @@ const AuthForm: React.FC = () => {
     const onAuthFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         //
-        dispatch(switchUserAuthorizedStatus(true));
-        navigate('/chat', { state: 'messaging' });
+        setIsLoading(true);
+
+        setTimeout(() => {
+            dispatch(switchUserAuthorizedStatus(true));
+            navigate('/chat', { state: 'messaging' });
+        }, 1800);
     };
 
     const onIdInstanceInputChange = (
@@ -53,19 +60,26 @@ const AuthForm: React.FC = () => {
             action="#"
             onSubmit={e => onAuthFormSubmit(e)}
         >
-            <FormInput
-                placeholder="Type a idInstance"
-                onInputChange={onIdInstanceInputChange}
-                value={userIdInstance}
-            />
-            <FormInput
-                placeholder="Type a apiTokenInstance"
-                onInputChange={onApiTokenInstanceChange}
-                value={userApiTokenInstance}
-            />
+            <div className="auth-form__group">
+                <FormInput
+                    placeholder="Type a idInstance"
+                    onInputChange={onIdInstanceInputChange}
+                    value={userIdInstance}
+                    isDisabled={isLoading}
+                />
+                <FormInput
+                    placeholder="Type a apiTokenInstance"
+                    onInputChange={onApiTokenInstanceChange}
+                    value={userApiTokenInstance}
+                    isDisabled={isLoading}
+                />
+                <>{isLoading && <Loader />}</>
+            </div>
+
             <button
                 className="auth-form__button"
                 type="submit"
+                disabled={isLoading}
             >
                 Verify
             </button>

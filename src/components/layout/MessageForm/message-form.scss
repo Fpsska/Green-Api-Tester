@@ -13,12 +13,26 @@
     gap: 10px;
 
     &__inputs {
+        position: relative;
         flex: 0 1 80%;
         display: flex;
         flex-direction: column;
 
-        :not(:last-child) {
+        .input {
             margin-bottom: 10px;
+        }
+
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            span {
+                &:after {
+                    background-color: $cadet-blue-color
+                }
+            }
         }
 
     }

@@ -40,5 +40,5 @@ export function useFetchApi(): any {
         []
     );
 
-    return { isLoading, error, fetchRequest };
+    return { isLoading, setLoading, error, fetchRequest };
 }
