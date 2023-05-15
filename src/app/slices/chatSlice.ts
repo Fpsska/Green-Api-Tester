@@ -1,13 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { chatSliceTypes } from 'types/chatSliceTypes';
+import { chatSliceTypes, Imessage } from 'types/chatSliceTypes';
 
 // /. imports
 
 const initialState: chatSliceTypes = {
     recipientPhoneNumber: '',
     messageValue: '',
-    requestError: null
+    requestError: null,
+    receivedMessages: [],
+    isMessageSended: false
 };
 
 const chatSlice = createSlice({
@@ -22,11 +24,22 @@ const chatSlice = createSlice({
         },
         setRequestError(state, action: PayloadAction<string | null>) {
             state.requestError = action.payload;
+        },
+        setReceivedMessages(state, action: PayloadAction<Imessage>) {
+            state.receivedMessages.push(action.payload);
+        },
+        switchMessageSendedStatus(state, action: PayloadAction<boolean>) {
+            state.isMessageSended = action.payload;
         }
     }
 });
 
-export const { setRecipientPhoneNumber, setMessageValue, setRequestError } =
-    chatSlice.actions;
+export const {
+    setRecipientPhoneNumber,
+    setMessageValue,
+    setRequestError,
+    setReceivedMessages,
+    switchMessageSendedStatus
+} = chatSlice.actions;
 
 export default chatSlice.reducer;

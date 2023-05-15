@@ -24,13 +24,14 @@
             border-left: 6px solid transparent;
         }
 
-        p {
-            margin: 0;
-        }
-
         &:not(:last-child) {
             margin-bottom: 5px;
         }
+    }
+
+    &__text {
+        margin: 0;
+        font-size: 14px;
     }
 
     &__time {
@@ -40,4 +41,16 @@
         font-size: 11px;
         color: rgba($color: #fff, $alpha: 0.6);
     }
+
+    &__name {
+        @extend .messages-list__time;
+        text-align: start;
+        font-weight: 700;
+        font-size: 15px;
+        color: $caribbean-green-color;
+        margin-bottom: 3px;
+    }
+
+
+
 }

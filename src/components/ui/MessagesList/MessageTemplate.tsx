@@ -1,18 +1,29 @@
 import React from 'react';
 
+import { makeDateFormatting } from 'utils/helpers/makeDateFormatting';
+
 // /. imports
 
 interface propTypes {
     message: string;
+    senderName: string;
+    time: string;
 }
 
 // /. interfaces
 
-const MessageTemplate: React.FC<propTypes> = ({ message }) => {
+const MessageTemplate: React.FC<propTypes> = ({
+    message,
+    senderName,
+    time
+}) => {
     return (
         <li className="messages-list__template">
-            <p>{message}</p>
-            <span className="messages-list__time">3:22 PM</span>
+            <span className="messages-list__name">{senderName}</span>
+            <span className="messages-list__text">{message}</span>
+            <span className="messages-list__time">
+                {makeDateFormatting(time)}
+            </span>
         </li>
     );
 };

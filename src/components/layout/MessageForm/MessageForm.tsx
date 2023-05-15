@@ -7,7 +7,8 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {
     setRecipientPhoneNumber,
     setMessageValue,
-    setRequestError
+    setRequestError,
+    switchMessageSendedStatus
 } from 'app/slices/chatSlice';
 
 import { useFetchApi } from 'utils/hooks/useFetchApi';
@@ -29,22 +30,29 @@ const MessageForm: React.FC = () => {
     const dispatch = useAppDispatch();
     const location = useLocation();
 
-    const { isLoading, error, fetchRequest } = useFetchApi();
+    const { error, fetchRequest } = useFetchApi();
 
     // /. hooks
 
     const isChatPage = location?.state === 'messaging';
 
-    const onMessageFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    const onMessageFormSubmit = async (
+        e: React.FormEvent<HTMLFormElement>
+    ): Promise<any> => {
         e.preventDefault();
         //
         const URL = `${process.env.REACT_APP_GREEN_API_URL}/waInstance${userIdInstance}/sendMessage/${userApiTokenInstance}`;
-        fetchRequest(URL, 'POST', {
-            chatId: `${recipientPhoneNumber}@c.us`,
-            message: messageValue
-        })
-            .then((data: any) => console.log('POST DATA:', data))
-            .finally(() => dispatch(setMessageValue('')));
+
+        try {
+            const messageResponse = await fetchRequest(URL, 'POST', {
+                chatId: `${recipientPhoneNumber}@c.us`,
+                message: messageValue
+            });
+            // console.log('POST DATA:', messageResponse);
+        } finally {
+            dispatch(switchMessageSendedStatus(true));
+            console.log('=== Ending sending message event ===');
+        }
     };
 
     const onPhoneNumberInputChange = (
@@ -60,6 +68,13 @@ const MessageForm: React.FC = () => {
     };
 
     // /. functions
+
+    useEffect(() => {
+        return () => {
+            console.log('return case');
+            dispatch(switchMessageSendedStatus(false));
+        };
+    }, []);
 
     useEffect(() => {
         error && dispatch(setRequestError(error));
