@@ -8,7 +8,7 @@ import {
     switchUserAuthorizedStatus,
     setUserIdInstance,
     setUserApiTokenInstance,
-    setAuthRequestError
+    setRequestError
 } from 'app/slices/authSlice';
 
 import InteractiveButton from 'components/ui/InteractiveButton/InteractiveButton';
@@ -33,7 +33,7 @@ const AuthPage: React.FC = () => {
         dispatch(setUserIdInstance(''));
         dispatch(setUserApiTokenInstance(''));
         dispatch(switchUserAuthorizedStatus(false));
-        dispatch(setAuthRequestError(null));
+        dispatch(setRequestError(null));
     };
 
     const onContinueButtonClick = (): void => {

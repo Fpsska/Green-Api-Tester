@@ -21,19 +21,15 @@ export function useFetchApi(): any {
                 const data = await response.json();
 
                 if (response.status >= 400) {
-                    throw new Error(
-                        `FAILED: code ${response.status} ${data.message || ''}`
-                    );
+                    throw new Error(`code ${response.status}`);
                 } else {
                     console.log(`SUCCESS: code ${response.status}`);
                 }
 
                 return data;
             } catch (err: any) {
-                console.error(`Error: ${err.message}`);
+                console.error(`Error: ${err}`);
                 setError(err.message);
-            } finally {
-                // console.log('')
             }
         },
         []

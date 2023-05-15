@@ -26,7 +26,7 @@ const ChatPage: React.FC = () => {
         isMessageDataLoading
     } = useAppSelector(state => state.chatSlice);
 
-    const { userIdInstance, userApiTokenInstance, authRequestError } =
+    const { userIdInstance, userApiTokenInstance, requestError } =
         useAppSelector(state => state.authSlice);
 
     const dispatch = useAppDispatch();
@@ -35,7 +35,7 @@ const ChatPage: React.FC = () => {
     // /. hooks
 
     useEffect(() => {
-        if (!isMessageSended || authRequestError) return;
+        if (!isMessageSended || requestError) return;
 
         const getIncomingMessages = async (): Promise<any> => {
             const receive_notice_url = `${process.env.REACT_APP_GREEN_API_URL}/waInstance${userIdInstance}/receiveNotification/${userApiTokenInstance}`;
@@ -117,7 +117,7 @@ const ChatPage: React.FC = () => {
         userApiTokenInstance,
         messageValue,
         recipientPhoneNumber,
-        authRequestError
+        requestError
     ]);
 
     // /. effects
@@ -127,13 +127,14 @@ const ChatPage: React.FC = () => {
             <div className="chat-section__wrapper">
                 <h2 className="section-title">ChatPage</h2>
                 <>
-                    {authRequestError ? (
+                    {requestError ? (
                         <>
                             {isMessageDataLoading ? (
                                 <Loader />
                             ) : (
                                 <p className="error-markup">
-                                    <b>Error:</b> {authRequestError}
+                                    <b>Error:</b>
+                                    {requestError}
                                 </p>
                             )}
                         </>

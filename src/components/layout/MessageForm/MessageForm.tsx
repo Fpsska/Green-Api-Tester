@@ -11,7 +11,7 @@ import {
     switchMessageDataLoadingStatus
 } from 'app/slices/chatSlice';
 
-import { setAuthRequestError } from 'app/slices/authSlice';
+import { setRequestError } from 'app/slices/authSlice';
 
 import { useFetchApi } from 'utils/hooks/useFetchApi';
 
@@ -90,7 +90,21 @@ const MessageForm: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        error && dispatch(setAuthRequestError(error));
+        if (error) {
+            const fetchErrorPatern = /Failed to fetch/;
+
+            fetchErrorPatern.test(error)
+                ? dispatch(
+                      setRequestError(
+                          `${error}, Please check correctness of IdInstance, ApiTokenInstance`
+                      )
+                  )
+                : dispatch(
+                      setRequestError(
+                          `${error}, Please check correctness of recipient phone number.`
+                      )
+                  );
+        }
     }, [error]);
 
     // /. effects
