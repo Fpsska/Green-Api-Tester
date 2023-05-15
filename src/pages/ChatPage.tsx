@@ -1,29 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 
-import { setMessageValue, setReceivedMessages } from 'app/slices/chatSlice';
+import {
+    setMessageValue,
+    setReceivedMessages,
+    switchMessageDataLoadingStatus
+} from 'app/slices/chatSlice';
 
 import { useFetchApi } from 'utils/hooks/useFetchApi';
 
 import { makeStringReplacement } from 'utils/helpers/makeStringReplacement';
 
 import MessagesList from 'components/ui/MessagesList/MessagesList';
+import Loader from 'components/ui/Loader/Loader';
 
 // /. imports
 
 const ChatPage: React.FC = () => {
     const {
-        requestError,
         receivedMessages,
         recipientPhoneNumber,
         messageValue,
-        isMessageSended
+        isMessageSended,
+        isMessageDataLoading
     } = useAppSelector(state => state.chatSlice);
 
-    const { userIdInstance, userApiTokenInstance } = useAppSelector(
-        state => state.authSlice
-    );
+    const { userIdInstance, userApiTokenInstance, authRequestError } =
+        useAppSelector(state => state.authSlice);
 
     const dispatch = useAppDispatch();
     const { fetchRequest } = useFetchApi();
@@ -31,7 +35,7 @@ const ChatPage: React.FC = () => {
     // /. hooks
 
     useEffect(() => {
-        if (!isMessageSended) return;
+        if (!isMessageSended || authRequestError) return;
 
         const getIncomingMessages = async (): Promise<any> => {
             const receive_notice_url = `${process.env.REACT_APP_GREEN_API_URL}/waInstance${userIdInstance}/receiveNotification/${userApiTokenInstance}`;
@@ -112,7 +116,8 @@ const ChatPage: React.FC = () => {
         userIdInstance,
         userApiTokenInstance,
         messageValue,
-        recipientPhoneNumber
+        recipientPhoneNumber,
+        authRequestError
     ]);
 
     // /. effects
@@ -122,10 +127,16 @@ const ChatPage: React.FC = () => {
             <div className="chat-section__wrapper">
                 <h2 className="section-title">ChatPage</h2>
                 <>
-                    {requestError ? (
-                        <p className="error-markup">
-                            <b>Error:</b> {requestError}
-                        </p>
+                    {authRequestError ? (
+                        <>
+                            {isMessageDataLoading ? (
+                                <Loader />
+                            ) : (
+                                <p className="error-markup">
+                                    <b>Error:</b> {authRequestError}
+                                </p>
+                            )}
+                        </>
                     ) : (
                         <div className="chat-section__preview">
                             <MessagesList

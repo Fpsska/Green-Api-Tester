@@ -3,13 +3,12 @@ import { useState, useCallback } from 'react';
 // /. imports
 
 export function useFetchApi(): any {
-    const [isLoading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<null | string>(null);
+
+    // /. hooks
 
     const fetchRequest = useCallback(
         async (URL: string, method = 'GET', body: any): Promise<any> => {
-            setLoading(true);
-
             try {
                 const response = await fetch(URL, {
                     method,
@@ -34,11 +33,11 @@ export function useFetchApi(): any {
                 console.error(`Error: ${err.message}`);
                 setError(err.message);
             } finally {
-                setLoading(false);
+                // console.log('')
             }
         },
         []
     );
 
-    return { isLoading, setLoading, error, fetchRequest };
+    return { error, fetchRequest };
 }

@@ -1,9 +1,9 @@
 export interface chatSliceTypes {
     recipientPhoneNumber: string;
     messageValue: string;
-    requestError: null | string;
     receivedMessages: Imessage[];
     isMessageSended: boolean;
+    isMessageDataLoading: boolean;
 }
 
 export interface Imessage {

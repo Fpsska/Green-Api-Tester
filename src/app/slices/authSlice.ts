@@ -7,7 +7,8 @@ import { authSliceTypes } from 'types/authSliceTypes';
 const initialState: authSliceTypes = {
     userIdInstance: '',
     userApiTokenInstance: '',
-    isUserAuthorized: false
+    isUserAuthorized: false,
+    authRequestError: null
 };
 
 const authSlice = createSlice({
@@ -22,6 +23,9 @@ const authSlice = createSlice({
         },
         switchUserAuthorizedStatus(state, action: PayloadAction<boolean>) {
             state.isUserAuthorized = action.payload;
+        },
+        setAuthRequestError(state, action: PayloadAction<string | null>) {
+            state.authRequestError = action.payload;
         }
     }
 });
@@ -29,7 +33,8 @@ const authSlice = createSlice({
 export const {
     setUserIdInstance,
     setUserApiTokenInstance,
-    switchUserAuthorizedStatus
+    switchUserAuthorizedStatus,
+    setAuthRequestError
 } = authSlice.actions;
 
 export default authSlice.reducer;

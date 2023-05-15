@@ -7,11 +7,15 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {
     setRecipientPhoneNumber,
     setMessageValue,
-    setRequestError,
-    switchMessageSendedStatus
+    switchMessageSendedStatus,
+    switchMessageDataLoadingStatus
 } from 'app/slices/chatSlice';
 
+import { setAuthRequestError } from 'app/slices/authSlice';
+
 import { useFetchApi } from 'utils/hooks/useFetchApi';
+
+import { makeStringReplacement } from 'utils/helpers/makeStringReplacement';
 
 import FormInput from 'components/ui/FormInput/FormInput';
 
@@ -20,9 +24,8 @@ import './message-form.scss';
 // /. imports
 
 const MessageForm: React.FC = () => {
-    const { recipientPhoneNumber, messageValue } = useAppSelector(
-        state => state.chatSlice
-    );
+    const { recipientPhoneNumber, messageValue, isMessageDataLoading } =
+        useAppSelector(state => state.chatSlice);
     const { userIdInstance, userApiTokenInstance } = useAppSelector(
         state => state.authSlice
     );
@@ -36,11 +39,14 @@ const MessageForm: React.FC = () => {
 
     const isChatPage = location?.state === 'messaging';
 
+    // /. variables
+
     const onMessageFormSubmit = async (
         e: React.FormEvent<HTMLFormElement>
     ): Promise<any> => {
         e.preventDefault();
         //
+        dispatch(switchMessageDataLoadingStatus(true));
         const URL = `${process.env.REACT_APP_GREEN_API_URL}/waInstance${userIdInstance}/sendMessage/${userApiTokenInstance}`;
 
         try {
@@ -51,6 +57,9 @@ const MessageForm: React.FC = () => {
             // console.log('POST DATA:', messageResponse);
         } finally {
             dispatch(switchMessageSendedStatus(true));
+            setTimeout(() => {
+                dispatch(switchMessageDataLoadingStatus(false));
+            }, 1800);
             console.log('=== Ending sending message event ===');
         }
     };
@@ -58,7 +67,11 @@ const MessageForm: React.FC = () => {
     const onPhoneNumberInputChange = (
         e: React.ChangeEvent<HTMLInputElement>
     ): void => {
-        dispatch(setRecipientPhoneNumber(e.target.value.trim()));
+        dispatch(
+            setRecipientPhoneNumber(
+                makeStringReplacement(e.target.value.trim())
+            )
+        );
     };
 
     const onMessageInputChange = (
@@ -77,7 +90,7 @@ const MessageForm: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        error && dispatch(setRequestError(error));
+        error && dispatch(setAuthRequestError(error));
     }, [error]);
 
     // /. effects
@@ -90,16 +103,16 @@ const MessageForm: React.FC = () => {
         >
             <div className="message-form__inputs">
                 <FormInput
-                    placeholder="Type a phone number"
+                    placeholder="79118433219"
                     onInputChange={onPhoneNumberInputChange}
                     value={recipientPhoneNumber}
-                    isDisabled={!isChatPage}
+                    isDisabled={!isChatPage || isMessageDataLoading}
                 />
                 <textarea
                     className="message-form__text-area"
                     placeholder="Type a message"
                     required
-                    disabled={!isChatPage}
+                    disabled={!isChatPage || isMessageDataLoading}
                     value={messageValue}
                     onChange={e => onMessageInputChange(e)}
                 ></textarea>
@@ -109,7 +122,7 @@ const MessageForm: React.FC = () => {
                 className="message-form__button"
                 type="submit"
                 aria-label="send message"
-                disabled={!isChatPage}
+                disabled={!isChatPage || isMessageDataLoading}
             >
                 <svg
                     viewBox="0 0 24 24"

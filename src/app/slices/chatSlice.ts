@@ -7,9 +7,9 @@ import { chatSliceTypes, Imessage } from 'types/chatSliceTypes';
 const initialState: chatSliceTypes = {
     recipientPhoneNumber: '',
     messageValue: '',
-    requestError: null,
     receivedMessages: [],
-    isMessageSended: false
+    isMessageSended: false,
+    isMessageDataLoading: false
 };
 
 const chatSlice = createSlice({
@@ -22,14 +22,14 @@ const chatSlice = createSlice({
         setMessageValue(state, action: PayloadAction<string>) {
             state.messageValue = action.payload;
         },
-        setRequestError(state, action: PayloadAction<string | null>) {
-            state.requestError = action.payload;
-        },
         setReceivedMessages(state, action: PayloadAction<Imessage>) {
             state.receivedMessages.push(action.payload);
         },
         switchMessageSendedStatus(state, action: PayloadAction<boolean>) {
             state.isMessageSended = action.payload;
+        },
+        switchMessageDataLoadingStatus(state, action: PayloadAction<boolean>) {
+            state.isMessageDataLoading = action.payload;
         }
     }
 });
@@ -37,9 +37,9 @@ const chatSlice = createSlice({
 export const {
     setRecipientPhoneNumber,
     setMessageValue,
-    setRequestError,
     setReceivedMessages,
-    switchMessageSendedStatus
+    switchMessageSendedStatus,
+    switchMessageDataLoadingStatus
 } = chatSlice.actions;
 
 export default chatSlice.reducer;
