@@ -24,6 +24,7 @@ export function useFetchApi(): any {
                     throw new Error(`code ${response.status}`);
                 } else {
                     console.log(`SUCCESS: code ${response.status}`);
+                    setError(null);
                 }
 
                 return data;

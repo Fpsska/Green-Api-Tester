@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 
-import {
-    setMessageValue,
-    setReceivedMessages,
-    switchMessageDataLoadingStatus
-} from 'app/slices/chatSlice';
+import { setMessageValue, setReceivedMessages } from 'app/slices/chatSlice';
+
+import { setRequestError } from 'app/slices/authSlice';
 
 import { useFetchApi } from 'utils/hooks/useFetchApi';
 
@@ -82,7 +80,7 @@ const ChatPage: React.FC = () => {
                         setReceivedMessages({
                             id: receivedNoticeResponse.receiptId,
                             senderName: 'Me',
-                            message: messageValue,
+                            message: `${messageValue} *(sended by Green-API)*`,
                             time: receivedNoticeResponse.body.timestamp,
                             isOwnMessage: true
                         })
@@ -96,8 +94,8 @@ const ChatPage: React.FC = () => {
                     delete_notice_url,
                     'DELETE'
                 );
-
                 dispatch(setMessageValue(''));
+
                 // console.log('deletedNoticeResponse:', deletedNoticeResponse);
             } finally {
                 console.log('=== Ending of handling notice events ===');

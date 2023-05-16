@@ -24,8 +24,12 @@ import './message-form.scss';
 // /. imports
 
 const MessageForm: React.FC = () => {
-    const { recipientPhoneNumber, messageValue, isMessageDataLoading } =
-        useAppSelector(state => state.chatSlice);
+    const {
+        recipientPhoneNumber,
+        messageValue,
+        isMessageSended,
+        isMessageDataLoading
+    } = useAppSelector(state => state.chatSlice);
     const { userIdInstance, userApiTokenInstance } = useAppSelector(
         state => state.authSlice
     );
@@ -55,14 +59,14 @@ const MessageForm: React.FC = () => {
         try {
             const messageResponse = await fetchRequest(URL, 'POST', {
                 chatId: `${recipientPhoneNumber}@c.us`,
-                message: messageValue
+                message: `${messageValue} *(sended by Green-API)*`
             });
             // console.log('POST DATA:', messageResponse);
         } finally {
             dispatch(switchMessageSendedStatus(true));
             setTimeout(() => {
                 dispatch(switchMessageDataLoadingStatus(false));
-            }, 1800);
+            }, 1200);
             console.log('=== Ending sending message event ===');
         }
     };
@@ -106,8 +110,10 @@ const MessageForm: React.FC = () => {
                           `${error}, Please check correctness of recipient phone number.`
                       )
                   );
+        } else {
+            dispatch(setRequestError(error));
         }
-    }, [error]);
+    }, [error, isMessageSended]);
 
     // /. effects
 
