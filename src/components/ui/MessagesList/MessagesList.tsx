@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import { Imessage } from 'types/chatSliceTypes';
 
@@ -15,9 +15,12 @@ interface propTypes {
 
 // /. interfaces
 
-const MessagesList: React.FC<propTypes> = ({ additionalClass, data }) => {
+const MessagesList = forwardRef<HTMLUListElement, propTypes>((props, ref) => {
+    const { additionalClass, data } = props;
+
     return (
         <ul
+            ref={ref}
             className={`${
                 additionalClass ? additionalClass : ''
             } messages-list`}
@@ -32,6 +35,8 @@ const MessagesList: React.FC<propTypes> = ({ additionalClass, data }) => {
             })}
         </ul>
     );
-};
+});
+
+MessagesList.displayName = 'MessagesList';
 
 export default MessagesList;

@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 
 import { setMessageValue, setReceivedMessages } from 'app/slices/chatSlice';
-
-import { setRequestError } from 'app/slices/authSlice';
 
 import { useFetchApi } from 'utils/hooks/useFetchApi';
 
@@ -28,6 +26,8 @@ const ChatPage: React.FC = () => {
         useAppSelector(state => state.authSlice);
 
     const dispatch = useAppDispatch();
+    const messageListRef = useRef<HTMLUListElement>(null!);
+
     const { fetchRequest } = useFetchApi();
 
     // /. hooks
@@ -118,6 +118,24 @@ const ChatPage: React.FC = () => {
         requestError
     ]);
 
+    useEffect(() => {
+        // logic of scroll to last message
+
+        const validCondition =
+            messageListRef?.current &&
+            receivedMessages.length > 0 &&
+            !requestError;
+
+        if (validCondition) {
+            setTimeout(() => {
+                messageListRef.current.scrollTo({
+                    top: messageListRef.current.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }, 200);
+        }
+    }, [receivedMessages, requestError]);
+
     // /. effects
 
     return (
@@ -139,6 +157,7 @@ const ChatPage: React.FC = () => {
                     ) : (
                         <div className="chat-section__preview">
                             <MessagesList
+                                ref={messageListRef}
                                 data={receivedMessages}
                                 additionalClass="chat-section__messages-list"
                             />
