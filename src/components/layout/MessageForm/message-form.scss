@@ -12,6 +12,10 @@
     padding: 24px;
     gap: 10px;
 
+    @media screen and (max-width: 767px) {
+        flex-direction: column;
+    }
+
     &__inputs {
         position: relative;
         flex: 0 1 80%;
