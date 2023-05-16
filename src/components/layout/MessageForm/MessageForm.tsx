@@ -84,7 +84,6 @@ const MessageForm: React.FC = () => {
 
     useEffect(() => {
         return () => {
-            console.log('return case');
             dispatch(switchMessageSendedStatus(false));
         };
     }, []);

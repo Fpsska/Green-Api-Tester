@@ -36,6 +36,8 @@ const AuthForm: React.FC = () => {
 
         setTimeout(() => {
             dispatch(switchUserAuthorizedStatus(true));
+            localStorage.setItem('storageUserAuthStatus', JSON.stringify(true));
+
             navigate('/chat', { state: 'messaging' });
         }, 1800);
     };

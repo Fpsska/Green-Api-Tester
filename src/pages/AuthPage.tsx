@@ -32,8 +32,10 @@ const AuthPage: React.FC = () => {
     const onLogoutButtonClick = (): void => {
         dispatch(setUserIdInstance(''));
         dispatch(setUserApiTokenInstance(''));
-        dispatch(switchUserAuthorizedStatus(false));
         dispatch(setRequestError(null));
+
+        dispatch(switchUserAuthorizedStatus(false));
+        localStorage.setItem('storageUserAuthStatus', JSON.stringify(false));
     };
 
     const onContinueButtonClick = (): void => {

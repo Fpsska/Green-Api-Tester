@@ -7,6 +7,7 @@ import Layout from 'components/layout/Layout';
 import AuthPage from 'pages/AuthPage';
 import ChatPage from 'pages/ChatPage';
 import NoFoundPage from 'pages/NoFoundPage';
+import ProtectedRoute from 'components/hoc/ProtectedRoute';
 
 import './App.css';
 import 'assets/styles/style.scss';
@@ -27,7 +28,11 @@ const App: React.FC = () => {
                     />
                     <Route
                         path="chat"
-                        element={<ChatPage />}
+                        element={
+                            <ProtectedRoute>
+                                <ChatPage />
+                            </ProtectedRoute>
+                        }
                     />
                     <Route
                         path="*"

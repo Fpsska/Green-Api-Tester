@@ -4,10 +4,14 @@ import { authSliceTypes } from 'types/authSliceTypes';
 
 // /. imports
 
+const storageUserAuthStatus = JSON.parse(
+    localStorage.getItem('storageUserAuthStatus') || 'false'
+);
+
 const initialState: authSliceTypes = {
     userIdInstance: '',
     userApiTokenInstance: '',
-    isUserAuthorized: false,
+    isUserAuthorized: storageUserAuthStatus,
     requestError: null
 };
 
