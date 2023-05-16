@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 
@@ -26,12 +26,20 @@ const AuthForm: React.FC = () => {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
 
     // /. hooks
 
+    const isUnknownPage = location?.state === 'unknown';
+    const isFormAvaliable = !isLoading && !isUnknownPage;
+
+    // /. variables
+
     const onAuthFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+        if (!isFormAvaliable) return;
+
         e.preventDefault();
-        //
+
         setIsLoading(true);
 
         setTimeout(() => {
@@ -67,13 +75,13 @@ const AuthForm: React.FC = () => {
                     placeholder="Type a idInstance"
                     onInputChange={onIdInstanceInputChange}
                     value={userIdInstance}
-                    isDisabled={isLoading}
+                    isDisabled={!isFormAvaliable}
                 />
                 <FormInput
                     placeholder="Type a apiTokenInstance"
                     onInputChange={onApiTokenInstanceChange}
                     value={userApiTokenInstance}
-                    isDisabled={isLoading}
+                    isDisabled={!isFormAvaliable}
                 />
                 <>{isLoading && <Loader />}</>
             </div>
@@ -81,7 +89,7 @@ const AuthForm: React.FC = () => {
             <button
                 className="auth-form__button"
                 type="submit"
-                disabled={isLoading}
+                disabled={!isFormAvaliable}
             >
                 Verify
             </button>

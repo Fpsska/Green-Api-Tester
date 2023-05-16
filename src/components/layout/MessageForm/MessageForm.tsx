@@ -38,12 +38,15 @@ const MessageForm: React.FC = () => {
     // /. hooks
 
     const isChatPage = location?.state === 'messaging';
+    const isFormAvaliable = isChatPage && !isMessageDataLoading;
 
     // /. variables
 
     const onMessageFormSubmit = async (
         e: React.FormEvent<HTMLFormElement>
     ): Promise<any> => {
+        if (!isFormAvaliable) return;
+
         e.preventDefault();
         //
         dispatch(switchMessageDataLoadingStatus(true));
@@ -119,13 +122,13 @@ const MessageForm: React.FC = () => {
                     placeholder="79118433219"
                     onInputChange={onPhoneNumberInputChange}
                     value={recipientPhoneNumber}
-                    isDisabled={!isChatPage || isMessageDataLoading}
+                    isDisabled={!isFormAvaliable}
                 />
                 <textarea
                     className="message-form__text-area"
                     placeholder="Type a message"
                     required
-                    disabled={!isChatPage || isMessageDataLoading}
+                    disabled={!isFormAvaliable}
                     value={messageValue}
                     onChange={e => onMessageInputChange(e)}
                 ></textarea>
@@ -135,7 +138,7 @@ const MessageForm: React.FC = () => {
                 className="message-form__button"
                 type="submit"
                 aria-label="send message"
-                disabled={!isChatPage || isMessageDataLoading}
+                disabled={!isFormAvaliable}
             >
                 <svg
                     viewBox="0 0 24 24"
