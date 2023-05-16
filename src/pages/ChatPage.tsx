@@ -7,6 +7,7 @@ import { setMessageValue, setReceivedMessages } from 'app/slices/chatSlice';
 import { useFetchApi } from 'utils/hooks/useFetchApi';
 
 import { makeStringReplacement } from 'utils/helpers/makeStringReplacement';
+import { generateUniqueID } from 'utils/helpers/generateUniqueID';
 
 import MessagesList from 'components/ui/MessagesList/MessagesList';
 import Loader from 'components/ui/Loader/Loader';
@@ -62,7 +63,7 @@ const ChatPage: React.FC = () => {
                     // handle only incoming messages
                     dispatch(
                         setReceivedMessages({
-                            id: receivedNoticeResponse.receiptId,
+                            id: generateUniqueID(),
                             senderName:
                                 receivedNoticeResponse.body.senderData
                                     .senderName || senderNumber,
@@ -78,7 +79,7 @@ const ChatPage: React.FC = () => {
                     // handle messages from yourself
                     dispatch(
                         setReceivedMessages({
-                            id: receivedNoticeResponse.receiptId,
+                            id: generateUniqueID(),
                             senderName: 'Me',
                             message: `${messageValue} *(sended by Green-API)*`,
                             time: receivedNoticeResponse.body.timestamp,
