@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
 
+###### _inspired by [WhatsApp](https://www.whatsapp.com/)_
+
 ###### _hosted by_
 - [vercel](https://vercel.com/)
 ###### _powered by :_
