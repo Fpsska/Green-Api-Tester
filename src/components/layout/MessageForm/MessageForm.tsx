@@ -97,6 +97,7 @@ const MessageForm: React.FC = () => {
 
     useEffect(() => {
         if (error) {
+            dispatch(setMessageValue(''));
             const fetchErrorPatern = /Failed to fetch/;
 
             fetchErrorPatern.test(error)
@@ -111,7 +112,7 @@ const MessageForm: React.FC = () => {
                       )
                   );
         } else {
-            dispatch(setRequestError(error));
+            dispatch(setRequestError(null));
         }
     }, [error, isMessageSended]);
 

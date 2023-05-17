@@ -66,11 +66,13 @@ const ChatPage: React.FC = () => {
                             id: generateUniqueID(),
                             senderName:
                                 receivedNoticeResponse.body.senderData
-                                    .senderName || senderNumber,
+                                    ?.senderName || senderNumber,
                             message:
                                 receivedNoticeResponse.body.messageData
-                                    .textMessageData.textMessage,
-                            time: receivedNoticeResponse.body.timestamp
+                                    .textMessageData?.textMessage || 'untitled',
+                            time:
+                                receivedNoticeResponse.body?.timestamp ||
+                                'untitled'
                         })
                     );
                 }
@@ -82,7 +84,9 @@ const ChatPage: React.FC = () => {
                             id: generateUniqueID(),
                             senderName: 'Me',
                             message: `${messageValue} *(sended by Green-API)*`,
-                            time: receivedNoticeResponse.body.timestamp,
+                            time:
+                                receivedNoticeResponse.body?.timestamp ||
+                                'untitled',
                             isOwnMessage: true
                         })
                     );
