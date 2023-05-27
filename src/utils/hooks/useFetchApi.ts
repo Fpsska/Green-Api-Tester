@@ -8,14 +8,22 @@ export function useFetchApi(): any {
     // /. hooks
 
     const fetchRequest = useCallback(
-        async (URL: string, method = 'GET', body: any): Promise<any> => {
+        async (
+            URL: string,
+            method = 'GET',
+            body: null | string = null,
+            headers = {} as { [key: string]: string }
+        ): Promise<any> => {
             try {
+                if (body) {
+                    body = JSON.stringify(body);
+                    headers['Content-Type'] = 'application/json';
+                }
+
                 const response = await fetch(URL, {
                     method,
-                    body: body ? JSON.stringify(body) : null,
-                    headers: body
-                        ? { 'Content-Type': 'application/json' }
-                        : undefined
+                    body,
+                    headers
                 });
 
                 const data = await response.json();
